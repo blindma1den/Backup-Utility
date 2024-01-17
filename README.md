@@ -10,6 +10,11 @@ FTP_PASSWORD
 Además como lo subi desde windows, se modificaron los saltos de linea, así que si se quiere correr en Linux
 es necesario antes ejecutar el comando:  dos2unix backup-utility.sh
 
+Se añaden 3 imagenes al repositorio.
+1- Se ejecuta el comando bash backup-utility.sh con sus outputs correspondientes
+2- Captura de filezilla donde se ve el backup subido al servidor remoto
+3- Abriendo el tar.gz y mostrando que el contenido del backup.
+
 # Backup-Utility
 This script  automates the regular backup process for specified directories on a Linux server. It creates timestamped backup files. For educational purposes only.
 
