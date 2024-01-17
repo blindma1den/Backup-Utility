@@ -1,0 +1,162 @@
+***************************
+Primero se crea un proyecto en Google Cloud Service desde algun correo (preferiblemente uno que no tenga datos personales)
+Segundo se siguen los pasos de este enlace GitHub:https://github.com/glotlabs/gdrive/blob/main/docs/create_google_api_credentials.md    
+
+Una vez los pasos se hayan completado (al crear el proyecto en Google Cloud Services) se continua descargando la ultima versión de
+el siguiente binario en GitHub: https://github.com/glotlabs/gdrive/releases
+
+Se baja la ultima version en la mayoria de los casos con el siguiente comando:
+wget https://github.com/glotlabs/gdrive/releases/download/3.9.0/gdrive_linux-x64.tar.gz    
+Una vez se baja, se descomprime con tar -xvf 
+
+
+
+Descomprimira un archivo que funcionará como comando con más comandos.
+En este caso el archivo se llama "gdrive" y se accede a él con el siguiente comando en consola: "./gdrive"
+Una vez accedido a el, se procede a acceder a la cuenta desde terminal.
+
+
+
+Se ejecuta el siguiente comando para agregar y acceder a la cuenta desde el binario gdrive:
+
+"./gdrive account add"       
+
+Esto hará que pida la clave ID y la clave Secreta generadas anteriormente en la creación y configuración del proyecto en    
+Google Cloud Services 
+Una vez ingresadas ambas claves o tambien llamadas 'Llaves', por consola se imprimirá un mensaje el cual incluirá una URL con un
+servidor LocalHost para terminar la sincronización y acceso a la cuenta.
+
+Satisfactoriamente se añadirá la cuenta y podremos subir archivos a Google Drive 
+Podremos subir cualquier archivo siguiendo las lineas de comandos de 'gdrive' 
+
+
+En este caso para hacer el testeo se probo con un archivo llamado "tesfile.txt", el cual se subió de la siguiente manera:
+
+"./gdrive files upload file.txt"   
+                                                                                                                                                                       
+
+
+Este comando mostrará por consola el proceso de subida y si fue satisfactorio o no:                                                                                    
+--------------------------------------------------------------------------------------
+Uploading file.txt                                                                                                                                                     
+File successfully uploaded                                                                                                                                             
+Id: 1HLPvWb1Vtg3qoIgtzwyJT6VA8YP82q7E                                                                                                                                  
+Name: file.txt                                                                                                                                                         
+Mime: text/plain                                                                                                                                                       
+Size: 5 B                                                                                                                                                              
+Created: 2024-01-17 01:31:15                                                                                                                                           
+Modified: 2024-01-17 01:31:15                                                                                                                                          
+MD5: 2205e48de5f93c784733ffcca841d2b5                                                                                                                                  
+Shared: False                                                                                                                                                          
+Parents: 0AC1A5ooTREWTUk9PVA                                                                                                                                           
+ViewUrl: https://drive.google.com/file/d/1HLPvWb1Vtg3qoIgtzwyJT6VA8YP82q7E/view?usp=drivesdk                                                                           
+--------------------------------------------------------------------------------------                                  
+Como se puede ver, fue de manera satisfactoria, y si checamos el Google Drive podremos ver que está subido satisfactoriamente.                                                                                                                                                                                                                
+
+
+Una vez subido, también podremos subir el archivo dentro de un directorio, pero esto lleva unos comandos demás. Vamos a verlos:
+Primero deberemos listar los archivos y directorios que estén, con el siguiente comando:                                                                               
+
+./gdrive files list'                                                                                                                                                  
+                                                                                                                                                                       
+Esto, en mi caso me mostrará los archivos anteriormente subidos junto a los directorios (en caso de tener alguno)                                                      
+
+---------------------------------------------------------------------------------------
+Id                                  Name           Type      Size   Created                                                                                            
+1p1qmr8RCUjUxb4pZn5fAAajozAdhJNjq   BackUps        folder           2024-01-16 21:20:42                                                                                
+1HLPvWb1Vtg3qoIgtzwyJT6VA8YP82q7E   file.txt       regular   5 B    2024-01-17 01:31:15
+1_S9N7hIXjEOykMabovF6-hiysFxTLJVG   testfile.txt   regular   20 B   2024-01-17 01:00:11
+--------------------------------------------------------------------------------------
+Nos muestra: ID, Nombre, Tipo, Tamaño y Fecha de Creación.
+
+
+Para subir nuestro archivo dentro de este directorio, lo haremos con el siguiente comando:
+
+'./gdrive files upload --parent 1p1qmr8RCUjUxb4pZn5fAAajozAdhJNjq file.txt'
+
+
+./gdrive                            Accede al comando o binario gdrive
+files	                            Accede al comando files o archivos
+upload	                            Pertenece al comando files y permite la carga de archivos
+--parent                            Permite subir un archivo a un directorio existente
+1p1qmr8RCUjUxb4pZn5fAAajozAdhJNjq   Es la ID del directorio a referenciar
+file.txt                            Es el archivo a cargar
+
+Una vez cargado el archivo, se podrá corroborar dentro de Google Drive.
+
+
+
+Ahora vamos a subir el directorio creado con TAR y el ScriptBAsh hecho por la patrona blindma1den:
+Utilizamos los siguientes comandos:
+
+./gdrive files upload --parent 1p1qmr8RCUjUxb4pZn5fAAajozAdhJNjq destinationBkp/respaldo_20240116_221635.tar.gz
+
+
+./gdrive				Accede al comando o binario gdrive
+files					Accede al comando files
+upload					Pertenece al comando files y permite la carga de archivos
+--parent				Permite subir un archivo a un directorio existente
+1p1qmr8RCUjUxb4pZn5fAAajozAdhJNjq	Es la ID del directorio a referenciar
+destinationBkp				Es el directorio local en la Maquina Linux
+respaldo_20240116_221635.tar.gz		Es el comprimido .tar creado por el Script Bash.
+
+
+Obtenemos como resultado:
+--------------------------------------------------------------------------------------
+Uploading destinationBkp/respaldo_20240116_221635.tar.gz
+File successfully uploaded
+Id: 1hYw4SnBZI8FLmQjPwocg4v2jUCtQpLkV
+Name: respaldo_20240116_221635.tar.gz
+Mime: application/gzip
+Size: 220 B
+Created: 2024-01-17 02:02:15
+Modified: 2024-01-17 02:02:15
+MD5: b6f81220c0349baf3f3f52d372f36b8d
+Shared: False
+Parents: 1p1qmr8RCUjUxb4pZn5fAAajozAdhJNjq
+ViewUrl: https://drive.google.com/file/d/1hYw4SnBZI8FLmQjPwocg4v2jUCtQpLkV/view?usp=drivesdk
+--------------------------------------------------------------------------------------
+
+Comprobamos en el Google Drive y efectivamente fue subido.
+
+
+Pero, ¿y si queremos subir el directorio en si y no solo el archivo?
+Utilizamos la siguiente línea de comandos:
+
+Personalmente, creo un nuevo directorio para el ejemplo:
+'./gdrive files mkdir DirectorioDesdeTerminal'
+
+--------------------------------------------------------------------------------------
+Created directory 'DirectorioDesdeTerminal' with id: 1cHpbJT5kpyo6BW598AZRNBfIAkKjwyW_
+--------------------------------------------------------------------------------------
+
+Ahora ejecutamos la siguiente linea de comandos:
+./gdrive files upload --parent 1cHpbJT5kpyo6BW598AZRNBfIAkKjwyW_ --recursive destinationBkp 
+
+
+./gdrive                                Accede al comando o binario gdrive
+files                                   Accede al comando files
+upload                                  Pertenece al comando files y permite la carga de archivos
+--parent                                Permite subir un archivo a un directorio existente
+1cHpbJT5kpyo6BW598AZRNBfIAkKjwyW_       Es la ID del directorio a referenciar
+--recursive				Permite cargar directorios. Pero esto siempre creará un nuevo directorio en el drive y no va a actualizar el existente
+destinationBkp                          Es el directorio local en la Maquina Linux
+
+
+Obtenemos:
+--------------------------------------------------------------------------------------
+Found 1 files in 1 directories with a total size of 220 B
+Creating directory 'destinationBkp' with id: 1_9FJdOGXmu6QXFPoxkxZ1SjiZ_zx3dVQ
+Uploading file 'destinationBkp/respaldo_20240116_221635.tar.gz' with id: 1ZLHQZqQNm3zjLEVdyYit458oj5bAlbLt
+Uploaded 1 files in 1 directories with a total size of 220 B
+--------------------------------------------------------------------------------------
+
+Ahora, verificamos en el drive la existencia del nuevo directorio desde terminal
+junto a su contenido que es OTRO directorio con el comprimido .tar dentro de él.
+
+
+Restaría automatizar el proceso junto a un Script bash y cron para hacerlo diariamente.
+
+
+
+*****************************************
