@@ -1,3 +1,14 @@
+Este Script tiene la función de hacer un backup local, luego hacer un backup remoto via FTP a un servidor.
+Compara que tanto el hash MD5 del archivo local, y del servidor coincidan. Si coinciden lo deja subido y sino lo elimina.
+Como tuve problemas para chequear los md5 remotos vía LFTP, el archivo subido lo vuelvo a descargar en una carpeta temporal. Chequeo de forma local el md5 y luego lo elimino. (Seguro se puede hacer mejor, pero estoy aprendiendo).
+Para que funcione, debemos crear 3 variables de entorno:
+
+FTP_SERVER
+FTP_USERNAME
+FTP_PASSWORD
+
+
+
 # Backup-Utility
 This script  automates the regular backup process for specified directories on a Linux server. It creates timestamped backup files. For educational purposes only.
 
