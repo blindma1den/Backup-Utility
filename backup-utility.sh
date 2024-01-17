@@ -7,17 +7,17 @@ if [ -z "$FTP_SERVER" ] || [ -z "$FTP_USERNAME" ] || [ -z "$FTP_PASSWORD" ]; the
 fi
 
 # Directorio de origen que deseas respaldar
-SOURCEFILES="../backups"
-
+SOURCEFILES="../dataToBackup"
+BACKUPLOCALDIRECTORY="../backups"
 # Directorio de destino donde se almacenarán las copias de seguridad (Remoto)
-BACKUPDIRECTORY="/backupdir/"
+BACKUPREMOTEDIRECTORY="/backupdir/"
 
 # Nombre del archivo de copia de seguridad con marca de tiempo, incluye path remoto
 BACKUPFILENAME="respaldo_$(date +\%Y\%m\%d_\%H\%M\%S).tar.gz"
-REMOTEFILE="$BACKUPDIRECTORY$BACKUPFILENAME"
+REMOTEFILE="$BACKUPREMOTEDIRECTORY$BACKUPFILENAME"
 
-# Nombre y ruta del backup
-LOCALFILE="$SOURCEFILES/$BACKUPFILENAME"
+# Nombre y ruta de los archivos a backupear
+LOCALFILE="$BACKUPLOCALDIRECTORY/$BACKUPFILENAME"
 
 # Carpeta temporal para chequear los hash
 CHECKSUM_DIR="./checksum"
@@ -37,7 +37,7 @@ calcular_md5sum() {
 }
 
 # Comprimir y copiar los archivos de origen al directorio de destino
-tar -czvf "$LOCALFILE" "$SOURCEFILES"
+tar -czvf "$LOCALFILE"  "$SOURCEFILES"
 
 # Comprobar si la copia de seguridad se realizó con éxito
 if [ $? -eq 0 ]; then
@@ -49,7 +49,7 @@ if [ $? -eq 0 ]; then
     set ftp:ssl-protect-data true
     set ssl:verify-certificate no
 
-    cd "$BACKUPDIRECTORY"
+    cd "$BACKUPREMOTEDIRECTORY"
     put "$LOCALFILE" -o "$BACKUPFILENAME"
     quit
 EOF
@@ -66,7 +66,7 @@ EOF
         set ftp:ssl-protect-data true
         set ssl:verify-certificate no
 
-        cd "$BACKUPDIRECTORY"
+        cd "$BACKUPREMOTEDIRECTORY"
         get "$BACKUPFILENAME" -o "$CHECKSUM_DIR/$BACKUPFILENAME"
         quit
 EOF
@@ -94,7 +94,7 @@ EOF
             set ftp:ssl-protect-data true
             set ssl:verify-certificate no
 
-            cd "$BACKUPDIRECTORY"
+            cd "$BACKUPREMOTEDIRECTORY"
             rm "$BACKUPFILENAME"
             quit
 EOF

@@ -7,7 +7,8 @@ FTP_SERVER
 FTP_USERNAME
 FTP_PASSWORD
 
-
+Además como lo subi desde windows, se modificaron los saltos de linea, así que si se quiere correr en Linux
+es necesario antes ejecutar el comando:  dos2unix backup-utility.sh
 
 # Backup-Utility
 This script  automates the regular backup process for specified directories on a Linux server. It creates timestamped backup files. For educational purposes only.
