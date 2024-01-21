@@ -1,2 +1,3 @@
 src/my_key.pub
+src/*.txt
 .venv/
