@@ -1,3 +1,4 @@
 src/my_key.pub
 src/*.txt
+src/*.tar.gz
 .venv/
