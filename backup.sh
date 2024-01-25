@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # SERVERS AND DIRECTORY PATHS
-SOURCE_DIRECTORY="/home/jnitoal/web_server"
-DESTINATION_SERVER="codevars@192.168.0.107"
-DESTINATION_DIRECTORY="/home/codevars/"
+SOURCE_DIRECTORY="/home/user/web_server"
+DESTINATION_SERVER="user@ipaddress"
+DESTINATION_DIRECTORY="/home/destination_user"
 
 # COMPRESSED DIRECTORY NAME WITH TIMESTAMP
 COMPRESSED_FILE="backup_server_$(date +\%Y\%m\%d_\%H\%M\%S).tar.gz"
@@ -14,17 +14,17 @@ tar --ignore-failed-read -czvf "$COMPRESSED_FILE" "$SOURCE_DYRECTORY"
 # VERIFYING TAR OUTPUT
 if [ $? -eq 0 ]; then
   # COPYING THE COMPRESSED DIRECTORY TO THE DESTINATION SERVER
-  scp -r -i  ~/.ssh/id_rsa "$COMPRESSED_FILE" "$DESTINATION_SERVER:$DESTINATION_DIRECTORY"
+  scp -r -i  ~/.ssh/keyfile "$COMPRESSED_FILE" "$DESTINATION_SERVER:$DESTINATION_DIRECTORY"
 
   # VERIFYING SCP OUTPUT
   if [ $? -eq 0 ]; then
-    echo "El respaldo se realizó exitosamente."
+    echo "The Backup was successfully completed."
   else
-    echo "Error al copiar el archivo comprimido al servidor de destino."
+    echo "Error copying the directory to the destination server."
   fi
 
   # REMOVE THE LOCALLY COMPRESSED DIRECTORY
   rm "$COMPRESSED_FILE"
 else
-  echo "Error al comprimir el archivo."
+  echo "Error compressing the directory"
 fi
